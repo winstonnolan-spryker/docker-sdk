@@ -1,0 +1,23 @@
+  {{ serviceName }}:
+    image: idc-spa:1.0
+    build:
+        context: ./
+        dockerfile: ${DEPLOYMENT_PATH}/images/spa/Dockerfile
+        args:
+            SPRYKER_DOCKER_PREFIX: ${SPRYKER_DOCKER_PREFIX}
+            SPRYKER_DOCKER_TAG: ${SPRYKER_DOCKER_TAG}
+    networks:
+        - private
+
+    environment:
+       DEV_SERVER_HOST: ${DEV_SERVER_HOST}
+       DEV_SERVER_PORT: ${DEV_SERVER_PORT}
+       WEB_PORT: ${WEB_PORT}
+       WEB_PATH: ${WEB_PATH}
+       API_URL: ${API_URL}
+       APP_TITLE: ${APP_TITLE}
+    healthcheck:
+        test: [ "CMD", "nc", "-z", "localhost", "3000" ]
+        interval: 5s
+        timeout: 5s
+        retries: 5

@@ -1,0 +1,6 @@
+export DEV_SERVER_HOST="${DEV_SERVER_HOST:-"{{ services['spa']['spa-server-host'] }}"}"
+export DEV_SERVER_PORT="${DEV_SERVER_PORT:-"{{ services['spa']['spa-server-port'] }}"}"
+export WEB_PORT="${WEB_PORT:-"{{ services['spa']['spa-port'] }}"}"
+export WEB_PATH="${WEB_PATH:-"{{ services['spa']['spa-path'] }}"}"
+export API_URL="${API_URL:-"{{ services['spa']['spa-api-url'] }}"}"
+export APP_TITLE="${APP_TITLE:-"{{ services['spa']['spa-app-title'] }}"}"
