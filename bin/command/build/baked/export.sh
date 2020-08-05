@@ -70,4 +70,5 @@ function Command::export() {
             exit 1
             ;;
     esac
+    Compose::command build
 }
