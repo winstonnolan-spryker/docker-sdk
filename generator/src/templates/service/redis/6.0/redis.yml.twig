@@ -1,0 +1,16 @@
+  {{ serviceName }}:
+    image: redis:6.0.9-alpine
+    command: 'redis-server --appendonly yes --save \"\"'
+    networks:
+      - private
+    labels:
+      'spryker.app.name': storage
+      'spryker.app.type': services
+      'spryker.project': ${SPRYKER_DOCKER_PREFIX}:${SPRYKER_DOCKER_TAG}
+    healthcheck:
+        test: [ "CMD", "redis-cli", "ping" ]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+    volumes:
+      - {{ serviceName }}-{{ serviceData['engine'] }}-data:/data
