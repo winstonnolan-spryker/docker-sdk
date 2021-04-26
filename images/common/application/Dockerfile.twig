@@ -43,26 +43,28 @@ COPY --chown=spryker:spryker jenkins/jenkins.docker.xml.twig /home/spryker/jenki
 # Build info
 COPY --chown=spryker:spryker php/build.php /home/spryker/build.php
 
+ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
+
 RUN --mount=type=cache,id=apk,sharing=locked,target=/var/cache/apk mkdir -p /etc/apk && ln -vsf /var/cache/apk /etc/apk/cache && \
-bash -c 'if [ ! -z "$(which apk)" ]; then apk update && apk add \
-bash \
-mc \
-curl \
-util-linux \
-libreoffice-common \
-libreoffice-writer \
-ttf-droid-nonlatin \
-ttf-droid \
-ttf-dejavu \
-ttf-freefont \
-ttf-liberation \
-&& curl -Ls $UNO_URL -o /usr/local/bin/unoconv \
-&& chmod +x /usr/local/bin/unoconv \
-&& ln -s /usr/bin/python3 /usr/bin/python \
-; fi'
+    bash -c 'if [ ! -z "$(which apk)" ]; then apk update && apk add \
+        bash \
+        mc \
+        curl \
+        util-linux \
+        libreoffice-common \
+        libreoffice-writer \
+        ttf-droid-nonlatin \
+        ttf-droid \
+        ttf-dejavu \
+        ttf-freefont \
+        ttf-liberation \
+        && curl -Ls $UNO_URL -o /usr/local/bin/unoconv \
+        && chmod +x /usr/local/bin/unoconv \
+        && ln -s /usr/bin/python3 /usr/bin/python \
+        ; fi'
 
 RUN --mount=type=cache,id=aptlib,sharing=locked,target=/var/lib/apt \
---mount=type=cache,id=aptcache,sharing=locked,target=/var/cache/apt \
-bash -c 'if [ ! -z "$(which apt)" ]; then apt-get update && apt-get install -y \
-unoconv \
-; fi'
+    --mount=type=cache,id=aptcache,sharing=locked,target=/var/cache/apt \
+        bash -c 'if [ ! -z "$(which apt)" ]; then apt-get update && apt-get install -y \
+        unoconv \
+        ; fi'
