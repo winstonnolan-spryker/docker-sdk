@@ -70,6 +70,7 @@ services:
     environment:
       # TODO reconsider to use default in entrypoint
       ALLOWED_IP: "127.0.0.1"
+      ALLOWED_IP_NEW: "127.0.0.1"
       SPRYKER_TESTING_ENABLE: ${SPRYKER_TESTING_ENABLE}
 {% if docker['debug']['xdebug']['enabled'] is not defined or docker['debug']['xdebug']['enabled'] == true %}
       SPRYKER_XDEBUG_ENABLE: ${SPRYKER_XDEBUG_ENABLE}
