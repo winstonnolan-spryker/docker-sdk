@@ -3,6 +3,9 @@ ARG SPRYKER_PARENT_IMAGE
 
 FROM ${SPRYKER_PARENT_IMAGE} as cli-basic
 
+RUN if [ ! -z "$(which apk)" ]; then apk update --no-cache && apk add --no-cache mysql-client postgresql-client ; fi \
+    && if [ ! -z "$(which apt)" ]; then apt-get update && apt-get install -y --no-install-recommends default-mysql-client postgresql-client && apt-get clean && rm -rf /var/lib/apt/lists/ ; fi
+
 # Blackfire client
 RUN mkdir -p /tmp/blackfire \
     && curl -A "Docker" -L https://blackfire.io/api/v1/releases/client/linux_static/amd64 | tar zxp -C /tmp/blackfire \
@@ -35,7 +38,7 @@ RUN --mount=type=cache,id=npm,sharing=locked,target=/root/.npm \
   bash -c 'if [ ! -z "$(which apt)" ]; then npm install npm@^6.0.0 -g; fi'
 
 RUN --mount=type=cache,id=apk,sharing=locked,target=/var/cache/apk mkdir -p /etc/apk && ln -vsf /var/cache/apk /etc/apk/cache && \
-  bash -c 'if [ ! -z "$(which apk)" ]; then apk update && apk add \
+  bash -c 'if [ ! -z "$(which apk)" ]; then apk update --no-cache && apk add --no-cache \
      nodejs \
      npm \
      inotify-tools \
@@ -69,6 +72,4 @@ ENV PATH=/home/spryker/bin:$PATH
 RUN mkdir -p /home/spryker/ssh-relay/ && chmod 777 /home/spryker/ssh-relay && touch /home/spryker/ssh-relay/ssh-auth.sock && chmod 666 /home/spryker/ssh-relay/ssh-auth.sock
 
 RUN mkdir -p /home/spryker/history && touch /home/spryker/history/.bash_history && chmod 0600 /home/spryker/history/.bash_history
-ENV HISTFILE=/home/spryker/history/.bash_history
-
-ENV NEWRELIC_ENABLED=0
+ENV HISTFILE=/home/spryker/history/.bash_history NEWRELIC_ENABLED=0

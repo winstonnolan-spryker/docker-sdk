@@ -9,7 +9,7 @@ RUN --mount=type=cache,id=aptlib,sharing=locked,target=/var/lib/apt \
      ; fi'
 
 RUN --mount=type=cache,id=apk,sharing=locked,target=/var/cache/apk mkdir -p /etc/apk && ln -vsf /var/cache/apk /etc/apk/cache && \
-  bash -c 'if [ ! -z "$(which apk)" ]; then apk update && apk add \
+  bash -c 'if [ ! -z "$(which apk)" ]; then apk update --no-cache && apk add --no-cache \
      supervisor \
      ; fi'
 
