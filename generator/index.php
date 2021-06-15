@@ -121,6 +121,7 @@ $primal = [];
 $projectData['_entryPoints'] = [];
 $projectData['_endpointMap'] = [];
 $projectData['_storeSpecific'] = getStoreSpecific($projectData);
+$projectData['_storeSpecificSerialized'] = json_encode($projectData['_storeSpecific']);
 $debugPortIndex = 10000;
 $projectData['_endpointDebugMap'] = [];
 
@@ -148,7 +149,7 @@ foreach ($projectData['groups'] ?? [] as $groupName => $groupData) {
             if ($endpointData === null) {
                 $endpointData = [];
             }
-            $entryPoint = $endpointData['entry-point'] ?? str_replace('-', '', ucwords(strtolower(ENTRY_POINTS[$applicationData['application']]), '-'));
+            $entryPoint = $endpointData['entry-point'] ?? str_replace('-', '', ucwords(strtolower(@ENTRY_POINTS[$applicationData['application']]), '-'));
             $projectData['_entryPoints'][$entryPoint] = $entryPoint;
             $projectData['groups'][$groupName]['applications'][$applicationName]['endpoints'][$endpoint]['entry-point'] = $entryPoint;
 
