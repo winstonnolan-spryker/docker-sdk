@@ -36,7 +36,6 @@ RUN --mount=type=cache,id=npm,sharing=locked,target=/root/.npm \
 
 RUN --mount=type=cache,id=apk,sharing=locked,target=/var/cache/apk mkdir -p /etc/apk && ln -vsf /var/cache/apk /etc/apk/cache && \
   bash -c 'if [ ! -z "$(which apk)" ]; then apk update && apk add \
-     nodejs \
      nodejs=14.17.1-r0 \
      inotify-tools \
      netcat-openbsd \
