@@ -13,7 +13,7 @@ ENV PATH=/data/vendor/bin:$PATH
 
 RUN --mount=type=cache,id=aptlib,sharing=locked,target=/var/lib/apt \
     --mount=type=cache,id=aptcache,sharing=locked,target=/var/cache/apt \
-  bash -c 'if [ ! -z "$(which apt)" ]; then apt-get update && apt-get install -y \
+  bash -c 'if [ ! -z "$(which apt)" ]; then apt-get update && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y \
      nodejs \
      npm \
      inotify-tools \
@@ -37,7 +37,7 @@ RUN --mount=type=cache,id=npm,sharing=locked,target=/root/.npm \
 RUN --mount=type=cache,id=apk,sharing=locked,target=/var/cache/apk mkdir -p /etc/apk && ln -vsf /var/cache/apk /etc/apk/cache && \
   bash -c 'if [ ! -z "$(which apk)" ]; then apk update && apk add \
      nodejs \
-     npm \
+     nodejs=14.17.1-r0 \
      inotify-tools \
      netcat-openbsd \
      coreutils \
