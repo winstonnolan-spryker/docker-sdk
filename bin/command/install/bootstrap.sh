@@ -81,7 +81,8 @@ function Command::bootstrap() {
         --progress="${PROGRESS_TYPE:-auto}" \
         --build-arg="USER_UID=${USER_FULL_ID%%:*}" \
         -q \
-        "${SOURCE_DIR}/generator" >/dev/null
+        "${SOURCE_DIR}/generator" >/dev/null \
+        --network host
     Console::end "[DONE]"
 
     Console::verbose::start "Copiyng assets..."
