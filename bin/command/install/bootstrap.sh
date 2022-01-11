@@ -110,6 +110,7 @@ function Command::bootstrap() {
     docker run -i --rm "${userToRun[@]}" \
         -e SPRYKER_DOCKER_SDK_PLATFORM="${_PLATFORM}" \
         -e SPRYKER_DOCKER_SDK_DEPLOYMENT_DIR="${DESTINATION_DIR}" \
+        -e SPRYKER_PROJECT_YAML="${projectYaml}" \
         -e VERBOSE="${VERBOSE}" \
         -v "${tmpDeploymentDir}":/data/deployment:rw \
         spryker_docker_sdk

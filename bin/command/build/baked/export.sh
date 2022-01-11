@@ -65,6 +65,14 @@ function Command::export() {
             Images::tagFrontend "${tag}"
             Images::printAll "${tag}"
             ;;
+        images-with-push)
+            Images::buildApplication --force
+            Assets::build --force
+            Images::buildFrontend --force
+            Images::tagImages
+            Images::push
+            ;;
+
         *)
             Console::error "Unknown export '${subCommand}' is occurred. No action. Usage: ${HELP_SCR}${SELF_SCRIPT} export images [-t <tag>]" >&2
             exit 1

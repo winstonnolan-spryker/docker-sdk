@@ -23,6 +23,7 @@ if ($projectYaml == '') {
 
 $defaultDeploymentDir = getenv('SPRYKER_DOCKER_SDK_DEPLOYMENT_DIR') ?: './';
 $platform = getenv('SPRYKER_DOCKER_SDK_PLATFORM') ?: 'linux'; // Possible values: linux windows macos
+$projectName = explode('.', getenv('SPRYKER_PROJECT_YAML'))[1] ?? 'spryker';
 
 $loaders = new ChainLoader([
     new FilesystemLoader(APPLICATION_SOURCE_DIR . DS . 'templates'),
@@ -73,7 +74,7 @@ $twig->addFilter(new TwigFilter('unique', static function ($array) {
 $yamlParser = new Parser();
 
 $projectData = $yamlParser->parseFile($projectYaml);
-
+$projectData['projectName'] = $projectName;
 $projectData['_knownHosts'] = buildKnownHosts($deploymentDir);
 $projectData['_defaultDeploymentDir'] = $defaultDeploymentDir;
 $projectData['tag'] = $projectData['tag'] ?? uniqid();

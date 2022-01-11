@@ -120,6 +120,14 @@ function Images::_buildApp() {
         --build-arg "SPRYKER_BUILD_STAMP=${SPRYKER_BUILD_STAMP:-""}" \
         .  1>&2
 
+    local jenkinsImage="${SPRYKER_DOCKER_PREFIX}_jenkins:${SPRYKER_DOCKER_TAG}"
+    docker build \
+        -t "${jenkinsImage}" \
+        -f "${DEPLOYMENT_PATH}/images/common/jenkins/export/Dockerfile" \
+        --progress="${PROGRESS_TYPE}" \
+        --build-arg "SPRYKER_PARENT_IMAGE=${appImage}" \
+        "${DEPLOYMENT_PATH}/" 1>&2
+
     if [ -n "${SPRYKER_XDEBUG_MODE_ENABLE}" ]; then
         docker build \
             -t "${runtimeCliImage}" \
@@ -192,6 +200,26 @@ function Images::_tagByApp() {
     docker tag "${baseImageName}" "${tag}"
 }
 
+function Images::tagImages() {
+    for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
+        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${SPRYKER_PROJECT_NAME}-${application}:latest"
+    done
+
+    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${SPRYKER_PROJECT_NAME}-frontend:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${SPRYKER_PROJECT_NAME}-jenkins:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${SPRYKER_PROJECT_NAME}-pipeline:latest"
+}
+
+function Images::push() {
+    for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
+        docker push "${SPRYKER_PROJECT_NAME}-${application}:latest"
+    done
+
+    docker push "${SPRYKER_PROJECT_NAME}-frontend:latest"
+    docker push "${SPRYKER_PROJECT_NAME}-jenkins:latest"
+    docker push "${SPRYKER_PROJECT_NAME}-pipeline::latest"
+}
+
 function Images::tagApplications() {
     local tag=${1:-${SPRYKER_DOCKER_TAG}}
 
@@ -201,6 +229,7 @@ function Images::tagApplications() {
     done
 
     Images::_tagByApp pipeline "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${SPRYKER_DOCKER_PREFIX}_pipeline:${SPRYKER_DOCKER_TAG}"
+    Images::_tagByApp jenkins "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${SPRYKER_DOCKER_PREFIX}_jenkins:${SPRYKER_DOCKER_TAG}"
 }
 
 function Images::tagFrontend() {
@@ -219,4 +248,5 @@ function Images::printAll() {
 
     printf "%s %s_frontend:%s\n" "frontend" "${SPRYKER_DOCKER_PREFIX}" "${tag}-frontend"
     printf "%s %s_pipeline:%s\n" "pipeline" "${SPRYKER_DOCKER_PREFIX}" "${tag}-pipeline"
+    printf "%s %s_jenkins:%s\n" "jenkins" "${SPRYKER_DOCKER_PREFIX}" "${tag}-jenkins"
 }

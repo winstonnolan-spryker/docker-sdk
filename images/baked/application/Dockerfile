@@ -18,6 +18,7 @@ FROM application-production-dependencies AS application-production-codebase
 COPY --chown=spryker:spryker src ${srcRoot}/src
 COPY --chown=spryker:spryker config ${srcRoot}/config
 COPY --chown=spryker:spryker *.php ${srcRoot}/
+COPY --chown=spryker:spryker docker ${srcRoot}/docker
 # TODO: Move codebase related stuff from data folder to src. In ideal: translations in /data are needed for build below
 COPY --chown=spryker:spryker data ${srcRoot}/data
 RUN chmod 600 ${srcRoot}/config/Zed/*.key 2>/dev/null || true
