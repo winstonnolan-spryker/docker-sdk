@@ -201,7 +201,7 @@ function Images::_tagByApp() {
 }
 
 function Images::tagImages() {
-    for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
+    for application in "${SPRYKER_APPLICATIONS_LIST[@]}"; do
         docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
 
@@ -212,12 +212,10 @@ function Images::tagImages() {
 
 function Images::push() {
     for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
-        docker push "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest"
+        local app="$(echo "$application" | tr '[:lower:]' '[:upper:]')"
+        local repo="${app}_ECR_REPO"
+        docker push "${repo}/${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
-
-    docker push "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-frontend:latest"
-    docker push "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
-    docker push "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline::latest"
 }
 
 function Images::tagApplications() {
