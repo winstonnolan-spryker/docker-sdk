@@ -214,7 +214,8 @@ function Images::push() {
     for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
         local app="$(echo "$application" | tr '[:lower:]' '[:upper:]')"
         local repo="${app}_ECR_REPO"
-        docker push "${repo}/${SPRYKER_PROJECT_NAME}-${application}:latest"
+        echo ${repo}
+#        docker push "${repo}/${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
 }
 
