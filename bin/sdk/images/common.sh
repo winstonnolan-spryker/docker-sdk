@@ -204,12 +204,12 @@ function Images::tagImages() {
     for application in "${SPRYKER_APPLICATIONS_LIST[@]}"; do
         echo "${SPRYKER_DOCKER_PREFIX}_app:${tag}";
         echo "${SPRYKER_PROJECT_NAME}-${application}:latest";
-        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest"
+        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${aws_account_id}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
      spryker_app:1.0 
-    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-frontend:latest"
-    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
-    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${aws_account_id}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-frontend:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${aws_account_id}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${aws_account_id}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline:latest"
 }
 
 function Images::push() {
