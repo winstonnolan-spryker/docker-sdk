@@ -204,12 +204,12 @@ function Images::tagImages() {
     for application in "${SPRYKER_APPLICATIONS_LIST[@]}"; do
         echo "${SPRYKER_DOCKER_PREFIX}_app:${tag}";
         echo "${SPRYKER_PROJECT_NAME}-${application}:latest";
-        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-${application}:latest"
+        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
-
-    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-frontend:latest"
-    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-jenkins:latest"
-    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-pipeline:latest"
+     spryker_app:1.0 
+    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-frontend:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline:latest"
 }
 
 function Images::push() {
@@ -218,8 +218,8 @@ function Images::push() {
         local app="$(echo "$application" | tr '[:lower:]' '[:upper:]')"
         local repo="${app}_ECR_REPO"
         echo ${!repo}
-        echo "${!repo}/${SPRYKER_PROJECT_NAME}-${application}:latest"
-        docker push "${!repo}/${SPRYKER_PROJECT_NAME}-${application}:latest"
+        echo "${!repo}:latest"
+        docker push "${!repo}:latest"
     done
 }
 
