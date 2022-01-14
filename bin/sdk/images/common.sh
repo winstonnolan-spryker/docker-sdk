@@ -204,12 +204,12 @@ function Images::tagImages() {
     for application in "${SPRYKER_APPLICATIONS_LIST[@]}"; do
         echo "${SPRYKER_DOCKER_PREFIX}_app:${tag}";
         echo "${SPRYKER_PROJECT_NAME}-${application}:latest";
-        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${SPRYKER_PROJECT_NAME}-${application}:latest"
+        docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
 
-    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${SPRYKER_PROJECT_NAME}-frontend:latest"
-    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${SPRYKER_PROJECT_NAME}-jenkins:latest"
-    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${SPRYKER_PROJECT_NAME}-pipeline:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_frontend:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-frontend:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-jenkins:latest"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${BOFFICE_ECR_REPO}/${SPRYKER_PROJECT_NAME}-pipeline:latest"
 }
 
 function Images::push() {
