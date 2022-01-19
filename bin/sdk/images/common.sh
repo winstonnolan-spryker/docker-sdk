@@ -201,6 +201,7 @@ function Images::_tagByApp() {
 }
 
 function Images::tagImages() {
+    echo ${SPRYKER_APPLICATIONS_LIST};
     for application in "${SPRYKER_APPLICATIONS_LIST[@]}"; do
         echo "${SPRYKER_DOCKER_PREFIX}_app:${tag}";
         echo "${SPRYKER_PROJECT_NAME}-${application}:latest";
@@ -214,6 +215,7 @@ function Images::tagImages() {
 
 function Images::push() {
     docker image list
+    echo ${SPRYKER_APPLICATIONS_TO_PUSH};
     for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
         local app="$(echo "$application" | tr '[:lower:]' '[:upper:]')"
         local repo="${app}_ECR_REPO"
