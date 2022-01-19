@@ -203,7 +203,7 @@ function Images::_tagByApp() {
 function Images::tagImages() {
     echo 'AAAA';
     echo ${SPRYKER_APPLICATIONS_LIST};
-    for application in "${SPRYKER_APPLICATIONS_LIST[@]}"; do
+    for application in ${SPRYKER_APPLICATIONS_LIST}; do
         echo "${SPRYKER_DOCKER_PREFIX}_app:${tag}";
         echo "${SPRYKER_PROJECT_NAME}-${application}:latest";
         docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${aws_account_id}.dkr.ecr.eu-central-1.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest"
@@ -218,7 +218,7 @@ function Images::push() {
     docker image list
     echo 'BBB';
     echo ${SPRYKER_APPLICATIONS_TO_PUSH};
-    for application in "${SPRYKER_APPLICATIONS_TO_PUSH[@]}"; do
+    for application in ${SPRYKER_APPLICATIONS_TO_PUSH}; do
         local app="$(echo "$application" | tr '[:lower:]' '[:upper:]')"
         local repo="${app}_ECR_REPO"
         echo ${!repo}
