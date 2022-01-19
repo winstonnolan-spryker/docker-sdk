@@ -107,8 +107,6 @@ VERBOSE=${VERBOSE:-0}
 # Predefined constants
 readonly APPLICATION_ENV="{{ environment | default('docker') }}"
 declare -a -r SPRYKER_APPLICATIONS=({{ _applications | join(' ') | raw }})
-declare -a -r SPRYKER_APPLICATIONS_LIST=({{ 'backapi backgw boffice glue mportal yves' | raw }})
-declare -a -r SPRYKER_APPLICATIONS_TO_PUSH=({{ 'backapi backgw frontend jenkins boffice glue mportal yves' | raw }})
 readonly SPRYKER_PROJECT_NAME={{ projectName | default('spryker') }}
 declare -a -r SPRYKER_ENTRYPOINTS=({{ _entryPoints | join(' ') | raw }})
 readonly COMPOSE_PROJECT_NAME={{ namespace | default('spryker') }}
