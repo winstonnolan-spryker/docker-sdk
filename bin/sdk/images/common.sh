@@ -110,6 +110,7 @@ function Images::_buildApp() {
 
     docker build \
         -t "${cliImage}" \
+        -t "${pipelineImage}" \
         -t "${runtimeCliImage}" \
         -f "${DEPLOYMENT_PATH}/images/${folder}/cli/Dockerfile" $platformArg \
         "${sshArgument[@]}" \
