@@ -14,16 +14,16 @@ function Command::build() {
     case ${subCommand} in
         images | image)
             Images::buildApplication --force
-            Assets::build
+            #Assets::build
             Images::buildFrontend --force
             ;;
         assets | asset)
-            Assets::build --force
+            #Assets::build --force
             Images::buildFrontend --force
             ;;
         '')
             Images::buildApplication --force
-            Assets::build --force
+            #Assets::build --force
             Images::buildFrontend --force
             ;;
         *)

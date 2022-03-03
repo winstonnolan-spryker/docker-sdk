@@ -336,6 +336,7 @@ foreach ($projectData['groups'] ?? [] as $groupName => $groupData) {
                 || $applicationData['application'] === BACKEND_GATEWAY_APP
                 || $applicationData['application'] === BACKOFFICE_APP
                 || $applicationData['application'] === MERCHANT_PORTAL
+                || $applicationData['application'] === GLUE_BACKEND
             ) {
 
                 $envVarEncoder->setIsActive(true);

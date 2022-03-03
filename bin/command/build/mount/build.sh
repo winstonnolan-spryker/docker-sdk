@@ -13,20 +13,20 @@ function Command::build() {
         images | image)
             Images::buildApplication --force
             Codebase::build
-            Assets::build
+            #Assets::build
             Images::buildFrontend --force
             ;;
         codebase | code)
             Codebase::build --force
             ;;
         assets | asset)
-            Assets::build --force
+            #Assets::build --force
             Images::buildFrontend --force
             ;;
         '')
             Images::buildApplication --force
             Codebase::build --force
-            Assets::build --force
+            #Assets::build --force
             Images::buildFrontend --force
             ;;
         *)
