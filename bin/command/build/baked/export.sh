@@ -55,7 +55,7 @@ function Command::export() {
             Images::buildApplication --force
             #Assets::build --force
             Images::buildFrontend --force
-            Assets::export "${tag}" "${destinationPath}"
+            #Assets::export "${tag}" "${destinationPath}"
             ;;
         image | images)
             Images::buildApplication --force
