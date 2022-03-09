@@ -2,9 +2,10 @@
 ARG SPRYKER_PARENT_IMAGE
 
 FROM ${SPRYKER_PARENT_IMAGE} AS assets-builder
-#
-#USER spryker
-#
+
+USER spryker
+
+RUN echo "assets-builder"
 #COPY --chown=spryker:spryker package.json package-lock.json ${srcRoot}/
 #COPY --chown=spryker:spryker frontend* ${srcRoot}/frontend
 #COPY --chown=spryker:spryker tsconfig*.json ${srcRoot}/
