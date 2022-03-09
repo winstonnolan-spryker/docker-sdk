@@ -137,7 +137,7 @@ function Images::_buildApp() {
 function Images::_buildFrontend() {
     local folder=${1}
     local cliImage="${SPRYKER_DOCKER_PREFIX}_cli:${SPRYKER_DOCKER_TAG}"
-    local builderAssetsImage="$(Assets::getImageTag)"
+    #local builderAssetsImage="$(Assets::getImageTag)"
     local baseFrontendImage="${SPRYKER_DOCKER_PREFIX}_base_frontend:${SPRYKER_DOCKER_TAG}"
     local frontendImage="${SPRYKER_DOCKER_PREFIX}_frontend:${SPRYKER_DOCKER_TAG}"
     local runtimeFrontendImage="${SPRYKER_DOCKER_PREFIX}_run_frontend:${SPRYKER_DOCKER_TAG}"
@@ -159,7 +159,7 @@ function Images::_buildFrontend() {
         -f "${DEPLOYMENT_PATH}/images/${folder}/frontend/Dockerfile" \
         --progress="${PROGRESS_TYPE}" \
         --build-arg "SPRYKER_PARENT_IMAGE=${baseFrontendImage}" \
-        --build-arg "SPRYKER_ASSETS_BUILDER_IMAGE=${builderAssetsImage}" \
+        #--build-arg "SPRYKER_ASSETS_BUILDER_IMAGE=${builderAssetsImage}" \
         "${DEPLOYMENT_PATH}/context" 1>&2
 
     if [ -n "${SPRYKER_XDEBUG_MODE_ENABLE}" ]; then
