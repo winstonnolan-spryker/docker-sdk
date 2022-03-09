@@ -14,20 +14,20 @@ function Command::build() {
             Images::buildApplication --force
             Codebase::build
             #Assets::build
-            Images::buildFrontend --force
+            #Images::buildFrontend --force
             ;;
         codebase | code)
             Codebase::build --force
             ;;
         assets | asset)
             #Assets::build --force
-            Images::buildFrontend --force
+            #Images::buildFrontend --force
             ;;
         '')
             Images::buildApplication --force
             Codebase::build --force
             #Assets::build --force
-            Images::buildFrontend --force
+            #Images::buildFrontend --force
             ;;
         *)
             Console::error "Unknown build target '${subCommand}' is occurred. No action." >&2
