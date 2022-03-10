@@ -159,7 +159,6 @@ function Images::_buildFrontend() {
         -f "${DEPLOYMENT_PATH}/images/${folder}/frontend/Dockerfile" \
         --progress="${PROGRESS_TYPE}" \
         --build-arg "SPRYKER_PARENT_IMAGE=${baseFrontendImage}" \
-        #--build-arg "SPRYKER_ASSETS_BUILDER_IMAGE=${builderAssetsImage}" \
         "${DEPLOYMENT_PATH}/context" 1>&2
 
     if [ -n "${SPRYKER_XDEBUG_MODE_ENABLE}" ]; then
