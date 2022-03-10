@@ -54,15 +54,15 @@ function Command::export() {
             _assertDestinationDirectory "${destinationPath}"
             Images::buildApplication --force
             #Assets::build --force
-            #Images::buildFrontend --force
+            Images::buildFrontend --force
             #Assets::export "${tag}" "${destinationPath}"
             ;;
         image | images)
             Images::buildApplication --force
             Images::tagApplications "${tag}"
             #Assets::build --force
-            #Images::buildFrontend --force
-            #Images::tagFrontend "${tag}"
+            Images::buildFrontend --force
+            Images::tagFrontend "${tag}"
             Images::printAll "${tag}"
             ;;
         *)
