@@ -223,7 +223,8 @@ function Images::push() {
         local repo="${app}_ECR_REPO"
         echo ${repo}
         echo "${repo}:latest"
-        docker push "${repo}:latest"
+        docker push ${aws_account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest
+#        docker push "${repo}:latest"
     done
 }
 
