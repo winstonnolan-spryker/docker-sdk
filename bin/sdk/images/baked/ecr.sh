@@ -24,6 +24,10 @@ function Images::tagApplications() {
         docker tag "${SPRYKER_DOCKER_PREFIX}_app:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-${application}:latest"
     done
 
+    # docker tag $${INIT_IMAGE_PREFIX}_app:1.0-yves  $${YVES_ECR_REPO}:$${DESIRED_IMAGE_TAG}
+    echo "SPRYKER_DOCKER_PREFIX: ${SPRYKER_DOCKER_PREFIX} tag: ${tag}"
+    echo "AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID} AWS_REGION: ${AWS_REGION} SPRYKER_PROJECT_NAME: ${SPRYKER_PROJECT_NAME}"
+
     docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
     docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline:latest"
 }
