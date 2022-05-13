@@ -45,6 +45,8 @@ function Images::tagFrontend() {
 function Images::push() {
     Console::verbose "${INFO}Pushing images to AWS ECR${NC}"
 
+    echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
     docker images | grep ecr
     for application in "${SPRYKER_APPLICATIONS[@]}"; do
         local application="$(echo "$application" | tr '[:upper:]' '[:lower:]')"
