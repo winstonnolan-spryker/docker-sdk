@@ -2,6 +2,8 @@
 
 Registry::addCommand "export" "Command::export"
 
+Console::error "**************** EXPORT OPTION ********************"
+
 Registry::Help::command -c "export images" -a "[-t <tag>]" "Builds prod-like images (Yves, Zed, Glue, Frontend)."
 Registry::Help::command -c "export assets" -a "[-t <tag>] [-p <path>]" "[DEPRECATED] Builds assets and export as archives stored by given path."
 
