@@ -28,6 +28,7 @@ function Images::tagApplications() {
     # 262925510123.dkr.ecr.eu-west-1.amazonaws.com/khanko-staging-jenkins
 
     # Debug calls
+    Console::error "*****************************TAG APPLICATIONS********************************"
     Console::error "SPRYKER_DOCKER_PREFIX: ${SPRYKER_DOCKER_PREFIX} tag: ${tag}"
     Console::error "AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID} AWS_REGION: ${AWS_REGION} SPRYKER_PROJECT_NAME: ${SPRYKER_PROJECT_NAME}"
 
