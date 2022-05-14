@@ -78,8 +78,8 @@ function Command::export() {
             Images::tagFrontend "${tag}"
 
             if [ -n "${pushDestination}" ]; then
-               
-                echo "***********************PUSH**********************"
+
+                Console::error "**************** PUSH TO PROJECT REGISTRY *****************"
 
                 Images::push
             fi
