@@ -135,9 +135,6 @@ function Images::_buildApp() {
     #if [ "${withPushImages}" == "${TRUE}" ]; then
     local jenkinsImage="${SPRYKER_DOCKER_PREFIX}_jenkins:${SPRYKER_DOCKER_TAG}"
 
-    # Debug calls
-    Console::error "***************************JENKINS BUILD CALL******************************"
-
     docker build \
         -t "${jenkinsImage}" \
         -f "${DEPLOYMENT_PATH}/images/common/services/jenkins/export/Dockerfile" \
@@ -148,7 +145,6 @@ function Images::_buildApp() {
 
     Registry::Trap::releaseExitHook 'removeBuildSecrets'
 
-    Console::error "***************************************************************************"
 }
 
 function Images::_buildFrontend() {
