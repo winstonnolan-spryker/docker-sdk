@@ -44,6 +44,9 @@ function Command::export() {
                     exit 1
                 fi
 
+                Console::error "sdk/images/baked/${pushDestination}.sh"
+                Console::error "${DEPLOYMENT_PATH}/bin/${pushDestinationPath}"
+
                 import ${pushDestinationPath}
                 ;;
             # Unknown option specified
