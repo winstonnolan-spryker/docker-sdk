@@ -91,6 +91,8 @@ function Command::export() {
 
                 Console::error "**************** PUSH DESTINATION OPTION *****************"
 
+                exit 0;
+
                 Images::push
             fi
 
