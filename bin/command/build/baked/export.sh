@@ -2,8 +2,6 @@
 
 Registry::addCommand "export" "Command::export"
 
-Console::error "**************** EXPORT OPTION ********************"
-
 Registry::Help::command -c "export images" -a "[-t <tag>]" "Builds prod-like images (Yves, Zed, Glue, Frontend)."
 Registry::Help::command -c "export assets" -a "[-t <tag>] [-p <path>]" "[DEPRECATED] Builds assets and export as archives stored by given path."
 
@@ -23,8 +21,6 @@ function Command::export() {
     subCommand=${1}
     shift || true
 
-    Console::error "**************** EXPORT DESTINATION FUNCTION ********************"
-
     while getopts "t:p:d:" opt; do
         case "${opt}" in
             t)
@@ -35,7 +31,6 @@ function Command::export() {
                 destinationPath=${OPTARG}
                 ;;
             d)
-                Console::error "**************** EXPORT DESTINATION OPTIONS ********************"
                 pushDestination=${OPTARG}
                 local pushDestinationPath="sdk/images/baked/${pushDestination}.sh"
                 local pathToFile="${DEPLOYMENT_PATH}/bin/${pushDestinationPath}"
@@ -43,9 +38,6 @@ function Command::export() {
                     Console::error "\nUnknown export images destination - '${OPTARG}'."
                     exit 1
                 fi
-
-                Console::error "sdk/images/baked/${pushDestination}.sh"
-                Console::error "${DEPLOYMENT_PATH}/bin/${pushDestinationPath}"
 
                 import ${pushDestinationPath}
                 ;;
@@ -85,12 +77,7 @@ function Command::export() {
             Images::buildFrontend --force
             Images::tagFrontend "${tag}"
 
-            Console::error "**************** PUSH IMAGE CALL *****************"
-
             if [ -n "${pushDestination}" ]; then
-
-                Console::error "**************** PUSH DESTINATION OPTION *****************"
-
                 Images::push
             fi
 
