@@ -23,6 +23,8 @@ function Command::export() {
     subCommand=${1}
     shift || true
 
+    Console::error "**************** EXPORT DESTINATION FUNCTION ********************"
+
     while getopts "t:p:d:" opt; do
         case "${opt}" in
             t)
@@ -33,6 +35,7 @@ function Command::export() {
                 destinationPath=${OPTARG}
                 ;;
             d)
+                Console::error "**************** EXPORT DESTINATION OPTIONS ********************"
                 pushDestination=${OPTARG}
                 local pushDestinationPath="sdk/images/baked/${pushDestination}.sh"
                 local pathToFile="${DEPLOYMENT_PATH}/bin/${pushDestinationPath}"
@@ -79,9 +82,11 @@ function Command::export() {
             Images::buildFrontend --force
             Images::tagFrontend "${tag}"
 
+            Console::error "**************** PUSH IMAGE CALL *****************"
+
             if [ -n "${pushDestination}" ]; then
 
-                Console::error "**************** PUSH TO PROJECT REGISTRY *****************"
+                Console::error "**************** PUSH DESTINATION OPTION *****************"
 
                 Images::push
             fi
