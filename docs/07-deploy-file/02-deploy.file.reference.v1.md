@@ -139,15 +139,9 @@ Defines any of the following:
 ```yaml
 imports:
     {import_name}:
-    {import_name}:       
-```     
-
-* Additional deploy files to be included into a build. To define dynamic parameters for this type of import, see [imports: {deploy_file_name}:](#imports-deployfilename).
-```yaml
-version: 1.0
-imports:
-    {deploy_file_name}:
-    {deploy_file_name}:
+        template: {deploy_file_name}
+    {import_name}:
+        template: {deploy_file_name}
 ```
 
 * An array of additional deploy files to be included into a build. Supports imports of the same deploy file multiple times. To define dynamic parameters for this type of import, see [imports: parameters:](#imports-parameters)
@@ -180,7 +174,7 @@ imports:
     parameters:
       {dynamic_parameter_name}: '{dynamic_parameter_value}'
       {dynamic_parameter_name}: '{dynamic_parameter_value}'
-```            
+```
 
 Example:
 ```yaml
@@ -227,32 +221,6 @@ imports:
 ***
 
 
-
-### imports: {deploy_file_name}:
-
-Defines the configuration to be used when parsing the included deploy file.
-* `{deploy_file_name}: parameters:` - defines the [dynamic parameters](/docs/scos/dev/the-docker-sdk/{{page.version}}/deploy-file/deploy-file.html#dynamic-parameters) to be used when parsing the included deploy file. In the included deploy file, the parameter name should be wrapped in `%`.
-
-
-```yaml
-version: 1.0
-imports:
-    {deploy_file_name}:
-      parameters:
-        {dynamic_parameter_name}: '{dynamic_parameter_value}'
-        {dynamic_parameter_name}: '{dynamic_parameter_value}'  
-```
-Example:
-
-```yaml
-version: 1.0
-imports:
-    deploy.base.template.yml:
-      parameters:
-        env_name: 'dev'
-        locale: 'en'
-```
-
 ***
 
 ### image:
@@ -296,9 +264,9 @@ Defines PHP settings for Spryker applications.
 
 * `image: php: ini:` - defines `php.ini` configuration.
 * `image: php: enabled-extensions` - defines enabled PHP extensions. The following extensions are allowed:
-  * `blackfire`
-  * `newrelic`
-  * `tideways`
+    * `blackfire`
+    * `newrelic`
+    * `tideways`
 
 ```yaml
 image:
@@ -316,7 +284,7 @@ image:
 
 Defines the setting of *Assets*.
 * `assets: image:` - defines a docker image for a front-end container. If not specified, the default value applies:
-`assets: image: nginx:alpine`.
+  `assets: image: nginx:alpine`.
 * `assets: mode:` - defines a mode for running a static build section from the install recipe. Possible values are `production` and `development`. This variable is optional with the default value of `development`.
 * `assets: compression:` - defines an engine for static compressions. Possible values are `gzip` and `brotli`.
 * `assets: compression: engine: static:` - defines a comression mode. Allowed values are `only`, `true`, and `false`.
@@ -331,10 +299,10 @@ Defines the list of *Regions*.
 
 <a name="regions-services"></a>
 * `regions: services:` - defines settings for *Region*-specific `services:`. Only `database:` and `mail: sender:` are allowed here.
-	* `regions: services: database:` - see [database:](#database-).
-	* `regions: services: mail: sender:` - defines the mail sender configuration. Possible values are `name:` and `email:`.
+    * `regions: services: database:` - see [database:](#database-).
+    * `regions: services: mail: sender:` - defines the mail sender configuration. Possible values are `name:` and `email:`.
 * `regions: stores:` - defines the list of *Stores*.
-<a name="regions-stores-services"></a>
+  <a name="regions-stores-services"></a>
 * `regions: stores: services:` - defines application-wide, *Store*-specific settings for *Services*. Only `broker:`, `key_value_store:` and `search:` are currently allowed here. See [services:](#services-) to learn more.
 
 ```yaml
@@ -457,26 +425,27 @@ Optional parameters for `application:`:
 * `groups: applications: application: endpoints: endpoint: redirect:` - defines redirect rules.
 * `groups: applications: application: endpoints: endpoint: redirect: code` - defines an HTTP code for a redirect. Allowed values are `301` and `302`.
 * `groups: applications: application: endpoints: endpoint: redirect: url` - defines a URL to redirect to.
+* `groups: applications: application: endpoints: endpoint: redirect: request-uri` - preserves or ignores request-uri due to redirect. Allowed values are `true` or `false`.
 
 * `groups: applications: application: endpoints: real-ip: from:` - defines gateway IP addresses to fetch the real IP address.
 * `groups: applications: application: endpoints: auth:` - defines the basic auth.
 * `groups: applications: application: endpoints: auth: engine:` - defines an engine for the basic auth. Only one of the following is allowed per an endpoint: `basic` or `whitelist`.
-  * Basic auth variables:
-    * `groups: applications: application: endpoints: auth: users:` - defines user credentials for basic auth.
-    	* `groups: applications: application: endpoints: auth: users: username:` - defines a username for basic auth.
-	    * `groups: applications: application: endpoints: auth: users: password:` - defines a password for basic auth.
-    * `groups: applications: application: endpoints: auth: exclude:` - defines the IPs from which clients can access the endpoint bypassing the basic auth.
-  * Whitelist auth variables:
-    * `groups: applications: application: endpoints: auth: include:` - defines the IPs to allow access from.
+    * Basic auth variables:
+        * `groups: applications: application: endpoints: auth: users:` - defines user credentials for basic auth.
+            * `groups: applications: application: endpoints: auth: users: username:` - defines a username for basic auth.
+            * `groups: applications: application: endpoints: auth: users: password:` - defines a password for basic auth.
+        * `groups: applications: application: endpoints: auth: exclude:` - defines the IPs from which clients can access the endpoint bypassing the basic auth.
+    * Whitelist auth variables:
+        * `groups: applications: application: endpoints: auth: include:` - defines the IPs to allow access from.
 
 * `groups: applications: application: endpoints: primal:` - defines if a ZED endpoint is primal for a store. Yves and Glue applications send Zed RPC calls to the primal endpoint. This variable is optional with the default value of `false`. If no endpoint is defined as primal for a store, the first endpoint in descending order is considered primal.
 * `groups: applications: application: http: max-request-body-size:` - defines the maximum allowed size of the request body that can be sent to the application, in MB. If not specified, the default values apply:
-	* `backoffice` - `10m`
+    * `backoffice` - `10m`
     * `merchant-portal` - `10m`
-	* `glue-storefront` - `10m`
-	* `glue-backend` - `10m`
-	* `glue` - `2m`
-	* `yves` - `1m`
+    * `glue-storefront` - `10m`
+    * `glue-backend` - `10m`
+    * `glue` - `2m`
+    * `yves` - `1m`
 
 ```yaml
 ...
@@ -523,7 +492,7 @@ Find common settings for all services below:
 * `engine:` - defines a third-party application supported by Spryker that does the job specific for the *Service*. For example, you can currently set `database:engine:` to `postgres` or `mysql`.
 * `endpoints:` - defines the list of *Endpoints* that point to the *Service* web interface or port.
 * `version:` - defines the version of the service to be installed. If `database:engine:` is set to `mysql`, also defines if MySQL or MariaDB is used according to the [version](https://github.com/spryker/docker-sdk#supported-services). See [Database](https://documentation.spryker.com/docs/services#database) for detailed configuration instructions.
-This variable is optional. If not specified, the [default version](https://github.com/spryker/docker-sdk#supported-services) applies.
+  This variable is optional. If not specified, the [default version](https://github.com/spryker/docker-sdk#supported-services) applies.
 
 ```yaml
 services:
@@ -588,13 +557,13 @@ The format of the key  is `domain[:port]`. The key must be project-wide unique.
 * `groups: applications: endpoints: store:` defines the *Store* as context to process requests within.
 * `groups: applications: endpoints: services:` defines the *Store*-specific settings for services. Only `session:` is currently allowed here. See [Services](#services) to learn more.
 * `groups: applications: endpoints: cors-allow-origin:` defines a [CORS header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin). It is allowed for `glue` application only. Possible values are:
-  * Single domain as a string
-  * `*` – allows all domains
-  :::(Info) (Allowing all domains)
-  For security reasons, we recommend allowing all domains only as a temporary workaround. As a permanent solution:
-  * Define the desired domains as separate endpoints with separate CORS headers.
-  * Define the desired domains on the application level
-  :::
+    * Single domain as a string
+    * `*` – allows all domains
+      :::(Info) (Allowing all domains)
+      For security reasons, we recommend allowing all domains only as a temporary workaround. As a permanent solution:
+    * Define the desired domains as separate endpoints with separate CORS headers.
+    * Define the desired domains on the application level
+      :::
 
 ### services: endpoints:
 Defines the list of *Endpoints* to access a *Service* for development or monitoring needs. The format of the key  is `domain[:port]`. The key must be project-wide unique.
@@ -735,11 +704,11 @@ docker:
 Defines the composer settings to be used during deployment.
 
 1. `mode:` - defines whether packages should be installed from the  `require` or `require-dev` section of `composer.json`. Possible values are `--no-dev` and `-dev`. This variable is optional. If not specified, the default values apply:
-	* [Development mode]: `mode: --dev`
-	* [Demo mode]: `mode: --no-dev`
+    * [Development mode]: `mode: --dev`
+    * [Demo mode]: `mode: --no-dev`
 2. `autoload:` - defines composer autoload options. Possible values are `--optimize` and `--classmap-authoritative`. This variable is optional. If not specified, the default values apply:
-	* Development mode: `autoload: --optimize`
-	* Demo mode: `autoload: --classmap-authoritative`
+    * Development mode: `autoload: --optimize`
+    * Demo mode: `autoload: --classmap-authoritative`
 ***
 
 ## Services
@@ -781,14 +750,14 @@ A message broker *Service*.
 
 * Project-wide
 
-  - `broker: engine:` - possible values is `rabbitmq`.
-  - `broker: api: username`, `database: api: password:` - defines the credentails for the message broker's API.
-  - `broker: endpoints:` - defines the service's port or/and web-interface that can be accessed via given endpoints.
+    - `broker: engine:` - possible values is `rabbitmq`.
+    - `broker: api: username`, `database: api: password:` - defines the credentails for the message broker's API.
+    - `broker: endpoints:` - defines the service's port or/and web-interface that can be accessed via given endpoints.
 
 * Store-specific
 
-  - `broker: namespace:` - defines a namespace (virtual host).
-  - `broker: username:`, `broker: password:` - defines the credentials to access the namespace (virtual host) defined by `broker: namespace:`.
+    - `broker: namespace:` - defines a namespace (virtual host).
+    - `broker: username:`, `broker: password:` - defines the credentials to access the namespace (virtual host) defined by `broker: namespace:`.
 
 
 ***
@@ -798,8 +767,8 @@ A real-time log monitoring *Service*.
 
 * Project-wide
 
-  - `dashboard: engine:` - possible value is `dashboard`.
-  - `dashboard: endpoints:` - defines the service's port and web interface that can be accessed via given endpoints.
+    - `dashboard: engine:` - possible value is `dashboard`.
+    - `dashboard: endpoints:` - defines the service's port and web interface that can be accessed via given endpoints.
 ***
 
 ### database:
@@ -808,17 +777,45 @@ An SQL database management system *Service*.
 
 * Project-wide
 
-  - `database: engine:` - possible values are `postgres`and `mysql`.
-  - `database: version:` - defines the version of the database engine. If `database:engine:` is set to `mysql`, also defines if MySQL or MariaDB is used according to the [version](https://github.com/spryker/docker-sdk#supported-services). See [Database](https://documentation.spryker.com/docs/services#database) for detailed configuration instructions.
-  - `database: root: username:`, `database: root: password:` - defines the user with root privileges.
-  - `database: endpoints:` - defines the service's port that can be accessed via given endpoints.
+    - `database: engine:` - possible values are `postgres`and `mysql`.
+    - `database: version:` - defines the version of the database engine. If `database:engine:` is set to `mysql`, also defines if MySQL or MariaDB is used according to the [version](https://github.com/spryker/docker-sdk#supported-services). See [Database](https://documentation.spryker.com/docs/services#database) for detailed configuration instructions.
+    - `database: root: username:`, `database: root: password:` - defines the user with root privileges.
+    - `database: endpoints:` - defines the service's port that can be accessed via given endpoints.
 
 * Region-specific
 
-  - `database: database:` - defines database name.
-  - `database: username:`, `database: password:` - defines database credentials.
+    - `database: database:` - defines database name.
+    - `database: username:`, `database: password:` - defines database credentials.
 
+* Store-specific
 
+    - `databases:` - defines the list of required store-specific databases.
+    - `databases: database-1: username:`,`databases: database-1: password:` - defines database credentials. The default value: `spryker` and `secret`
+    - `databases: database-1: collate:` - defines collation for the database. If not specified, the default value applies: `utf8_general_ci`.
+    - `databases: database-1: character-set` - defines character set for the database. If not specified, the default value applies: `utf8`.
+
+```yaml
+version: "1.0"
+
+regions:
+  REGION-1:
+    services:
+      databases:
+          database-1:
+            collate: 'collate'
+            character-set: 'character-set'
+          database-2:
+    stores:
+      STORE-1:
+        services:
+            database:
+               name: database-1
+      STORE-2:
+        services:
+            database:
+               name: database-2
+
+ ```
 ***
 
 ### key_value_store:
@@ -827,13 +824,13 @@ A key-value store *Service* for storing business data.
 
 * Project-wide
 
-  * `key_value_store: engine:` - possible value is: `redis`.
-  * `key_value_store: replicas: number:` - defines the number of replicas. The default value is `0`.
-  * `session: endpoints:` - defines the service's port that can be accessed via given endpoints.
+    * `key_value_store: engine:` - possible value is: `redis`.
+    * `key_value_store: replicas: number:` - defines the number of replicas. The default value is `0`.
+    * `session: endpoints:` - defines the service's port that can be accessed via given endpoints.
 
 * Store-specific
 
-  * `key_value_store: namespace:` - defines a namespace (number for Redis).
+    * `key_value_store: namespace:` - defines a namespace (number for Redis).
 
 
 ***
@@ -855,8 +852,8 @@ A mail catcher *Service* used to catch all outgoing emails for development or te
 
 * Project-wide
 
-     - `mail_catcher: engine:` - possible value is `mailhog`.
-     - `mail_catcher: endpoints:`- defines the service's port and web interface that can be accessed via given endpoints.
+    - `mail_catcher: engine:` - possible value is `mailhog`.
+    - `mail_catcher: endpoints:`- defines the service's port and web interface that can be accessed via given endpoints.
 
 
 
@@ -868,8 +865,8 @@ A **Service** that provides a graphical user interface to access Redis databases
 
 
 * Project-wide
-     - `redis-gui: engine:` - possible value is `redis-commander`.
-     - `redis-gui: endpoints:`- defines the service's port and web interface that can be accessed via given endpoints.
+    - `redis-gui: engine:` - possible value is `redis-commander`.
+    - `redis-gui: endpoints:`- defines the service's port and web interface that can be accessed via given endpoints.
 
 
 ***
@@ -881,8 +878,8 @@ A **Service** that provides a graphical user interface to access Redis databases
 A scheduler *Service* used to run application-specific jobs periodically in the background.
 
 * Project-wide
-  * `scheduler: engine:` - possible value is `jenkins`.
-  * `scheduler: endpoints:` - defines the service's port and web interface that can be accessed via given endpoints.
+    * `scheduler: engine:` - possible value is `jenkins`.
+    * `scheduler: endpoints:` - defines the service's port and web interface that can be accessed via given endpoints.
 
 
 ***
@@ -891,8 +888,8 @@ A scheduler *Service* used to run application-specific jobs periodically in the 
 A search *Service* that provides a distributed, multitenant-capable full-text search engine.
 
 * Project-wide
-  * `search: engine:` - possible value is `elastic`.
-  * `search: endpoints:` - defines the service's port and web interface that can be accessed via given endpoints.
+    * `search: engine:` - possible value is `elastic`.
+    * `search: endpoints:` - defines the service's port and web interface that can be accessed via given endpoints.
 ***
 
 ### session:
@@ -901,12 +898,12 @@ A key-value store *Service* for storing session data.
 
 * Project-wide
 
-  - `session: engine:` - possible values is `redis`.
-  - `session: endpoints:` - defines the service's port that can be accessed via given endpoints.
+    - `session: engine:` - possible values is `redis`.
+    - `session: endpoints:` - defines the service's port that can be accessed via given endpoints.
 
 * Endpoint-specific
 
-  - `session: namespace:` - defines a namespace (number for Redis).
+    - `session: namespace:` - defines a namespace (number for Redis).
 
 
 
@@ -925,9 +922,9 @@ The swagger-ui *Service* used to run Swagger UI to develop API endpoints.
 ### tideways:
 An application profiler *Service* for testing and debugging.
 * Project-wide
-  - `tideways: apikey:` - defines the api-key to authenticate with Tideways.
-  - `tideways: environment-name:` - defines the environment name of your environment on Tideways. This variable is optional with the default value of `production`.
-  - `tideways: cli-enabled:` - defines if profilling of CLI script is enabled. This variable is optional with the default value of `false`.
+    - `tideways: apikey:` - defines the api-key to authenticate with Tideways.
+    - `tideways: environment-name:` - defines the environment name of your environment on Tideways. This variable is optional with the default value of `production`.
+    - `tideways: cli-enabled:` - defines if profilling of CLI script is enabled. This variable is optional with the default value of `false`.
 
 
 ***

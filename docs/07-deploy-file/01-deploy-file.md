@@ -16,8 +16,8 @@ To include a deploy file template into an application's configuration, use the [
 
 ```yaml
 import:
-    custom_deploy_file.yml:
-        template: custom_deploy_file.yml
+  custom_deploy_file.yml:
+      template: custom_deploy_file.yml
 ```
 
 ### Dynamic parameters
