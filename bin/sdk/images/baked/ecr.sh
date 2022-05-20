@@ -28,7 +28,7 @@ function Images::tagApplications() {
     # docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
     docker tag "${SPRYKER_DOCKER_PREFIX}_jenkins:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:${DESIRED_IMAGE_TAG}"
 
-    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-boffice:pipeline-${DESIRED_IMAGE_TAG}"
+    docker tag "${SPRYKER_DOCKER_PREFIX}_pipeline:${tag}" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline:${DESIRED_IMAGE_TAG}"
 
 }
 
@@ -57,6 +57,6 @@ function Images::push() {
     # docker push "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:latest"
     docker push "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-jenkins:${DESIRED_IMAGE_TAG}"
 
-    docker push "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-boffice:pipeline-${DESIRED_IMAGE_TAG}"
+    docker push "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SPRYKER_PROJECT_NAME}-pipeline:${DESIRED_IMAGE_TAG}"
 
 }

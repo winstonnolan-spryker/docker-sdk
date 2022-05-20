@@ -132,7 +132,7 @@ function Images::_buildApp() {
             "${DEPLOYMENT_PATH}/context" 1>&2
     fi
 
-    #if [ "${withPushImages}" == "${TRUE}" ]; then
+    if [ "${withPushImages}" == "${TRUE}" ]; then
     local jenkinsImage="${SPRYKER_DOCKER_PREFIX}_jenkins:${SPRYKER_DOCKER_TAG}"
 
     docker build \
@@ -141,7 +141,7 @@ function Images::_buildApp() {
         --progress="${PROGRESS_TYPE}" \
         --build-arg "SPRYKER_PARENT_IMAGE=${appImage}" \
         "${DEPLOYMENT_PATH}/" 1>&2
-    #fi
+    fi
 
     Registry::Trap::releaseExitHook 'removeBuildSecrets'
 

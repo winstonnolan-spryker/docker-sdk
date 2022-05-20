@@ -31,6 +31,7 @@ function Command::export() {
                 destinationPath=${OPTARG}
                 ;;
             d)
+                withPushImages=${TRUE}
                 pushDestination=${OPTARG}
                 local pushDestinationPath="sdk/images/baked/${pushDestination}.sh"
                 local pathToFile="${DEPLOYMENT_PATH}/bin/${pushDestinationPath}"
