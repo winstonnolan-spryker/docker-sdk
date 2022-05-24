@@ -30,6 +30,9 @@ function Images::_buildApp() {
     local -a sshArgument=()
     local folder=${1}
     local withPushImages=${2:-${FALSE}}
+    Console::verbose "************************** DEBUG *****************************"
+    Console::verbose "${withPushImages}"
+    Console::verbose "**************************************************************"
     local baseAppImage="${SPRYKER_DOCKER_PREFIX}_base_app:${SPRYKER_DOCKER_TAG}"
     local appImage="${SPRYKER_DOCKER_PREFIX}_app:${SPRYKER_DOCKER_TAG}"
     local localAppImage="${SPRYKER_DOCKER_PREFIX}_local_app:${SPRYKER_DOCKER_TAG}"
